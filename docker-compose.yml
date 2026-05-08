@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  ghost-node:
+    image: node:20-alpine
+    working_dir: /app
+    volumes:
+      - .:/app
+    environment:
+      - GHOST_NODE_SECRET=${GHOST_NODE_SECRET}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - PORT=${PORT:-8080}
+      - GHOST_NODE_NAME=${GHOST_NODE_NAME:-Ghost Node}
+      - GHOST_NODE_REGION=${GHOST_NODE_REGION:-unknown}
+    command: sh -c "npm install --production && node ghost-server.js"
+    ports:
+      - "${PORT:-8080}:${PORT:-8080}"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:${PORT:-8080}/api/ghost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
