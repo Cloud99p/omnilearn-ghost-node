@@ -1,0 +1,17 @@
+{
+  "name": "omnilearn-ghost-node",
+  "version": "1.0.0",
+  "description": "OmniLearn distributed ghost node server",
+  "main": "ghost-server.js",
+  "scripts": {
+    "start": "node ghost-server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
